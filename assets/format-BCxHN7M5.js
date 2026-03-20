@@ -1,0 +1,1 @@
+const e=t=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(t),n=t=>new Date(t+"T12:00:00").toLocaleDateString("pt-BR"),a={checking:"Conta Corrente",savings:"Poupanca",investment:"Investimento",cash:"Dinheiro"};export{n as a,a as b,e as f};
