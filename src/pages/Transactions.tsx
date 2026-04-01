@@ -433,10 +433,10 @@ export default function Transactions() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1 justify-end">
-                          <button onClick={() => openEdit(t)} className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" title="Editar">
+                          <button onClick={() => openEdit(t)} className="p-1.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-indigo-500 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors" title="Editar">
                             <Pencil size={14} />
                           </button>
-                          <button onClick={() => setConfirm({ open: true, item: t })} className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400" title="Excluir">
+                          <button onClick={() => setConfirm({ open: true, item: t })} className="p-1.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-red-400 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:border-red-300 dark:hover:border-red-500 transition-colors" title="Excluir">
                             <Trash2 size={14} />
                           </button>
                         </div>
