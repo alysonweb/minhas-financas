@@ -59,9 +59,9 @@ export default function Dashboard() {
         supabase.from('accounts').select('*').order('created_at'),
         supabase.from('transactions').select('*, account:accounts(*), category:categories(*), credit_card:credit_cards(*)').order('date', { ascending: false }).limit(6),
         supabase.from('goals').select('*').order('created_at'),
-        supabase.from('transactions').select('type,amount').gte('date', firstDay).lte('date', lastDay).eq('is_paid', true),
-        supabase.from('transactions').select('type,amount').gte('date', prevFirst).lte('date', prevLast).eq('is_paid', true),
-        supabase.from('transactions').select('amount,category:categories(name,icon,color)').eq('type', 'expense').eq('is_paid', true).gte('date', firstDay).lte('date', lastDay),
+        supabase.from('transactions').select('type,amount').gte('date', firstDay).lte('date', lastDay),
+        supabase.from('transactions').select('type,amount').gte('date', prevFirst).lte('date', prevLast),
+        supabase.from('transactions').select('amount,category:categories(name,icon,color)').eq('type', 'expense').gte('date', firstDay).lte('date', lastDay),
       ]);
 
       setAccounts(accs ?? []);
@@ -92,7 +92,7 @@ export default function Dashboard() {
         const d = new Date(year, month - 1 - i, 1);
         const y = d.getFullYear();
         const m = d.getMonth() + 1;
-        const { data } = await supabase.from('transactions').select('type,amount').gte('date', `${y}-${String(m).padStart(2, '0')}-01`).lte('date', `${y}-${String(m).padStart(2, '0')}-31`).eq('is_paid', true);
+        const { data } = await supabase.from('transactions').select('type,amount').gte('date', `${y}-${String(m).padStart(2, '0')}-01`).lte('date', `${y}-${String(m).padStart(2, '0')}-31`);
         const r = (data ?? []).filter(t => t.type === 'income').reduce((s, t) => s + Number(t.amount), 0);
         const d2 = (data ?? []).filter(t => t.type === 'expense').reduce((s, t) => s + Number(t.amount), 0);
         months.push({ month: d.toLocaleDateString('pt-BR', { month: 'short' }), receitas: r, despesas: d2, saldo: r - d2 });
