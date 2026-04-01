@@ -47,11 +47,11 @@ export default function Dashboard() {
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
   const firstDay = `${year}-${String(month).padStart(2, '0')}-01`;
-  const lastDay = `${year}-${String(month).padStart(2, '0')}-31`;
+  const lastDay = new Date(year, month, 0).toISOString().split('T')[0];
   const prevM = month === 1 ? 12 : month - 1;
   const prevY = month === 1 ? year - 1 : year;
   const prevFirst = `${prevY}-${String(prevM).padStart(2, '0')}-01`;
-  const prevLast = `${prevY}-${String(prevM).padStart(2, '0')}-31`;
+  const prevLast = new Date(prevY, prevM, 0).toISOString().split('T')[0];
 
   useEffect(() => {
     async function load() {
@@ -92,7 +92,7 @@ export default function Dashboard() {
         const d = new Date(year, month - 1 - i, 1);
         const y = d.getFullYear();
         const m = d.getMonth() + 1;
-        const { data } = await supabase.from('transactions').select('type,amount').gte('date', `${y}-${String(m).padStart(2, '0')}-01`).lte('date', `${y}-${String(m).padStart(2, '0')}-31`);
+        const { data } = await supabase.from('transactions').select('type,amount').gte('date', `${y}-${String(m).padStart(2, '0')}-01`).lte('date', new Date(y, m, 0).toISOString().split('T')[0]);
         const r = (data ?? []).filter(t => t.type === 'income').reduce((s, t) => s + Number(t.amount), 0);
         const d2 = (data ?? []).filter(t => t.type === 'expense').reduce((s, t) => s + Number(t.amount), 0);
         months.push({ month: d.toLocaleDateString('pt-BR', { month: 'short' }), receitas: r, despesas: d2, saldo: r - d2 });
