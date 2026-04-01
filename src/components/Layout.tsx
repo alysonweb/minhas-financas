@@ -106,10 +106,10 @@ export default function Layout() {
             {theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
           </button>
 
-          <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-gray-100 dark:bg-white/4">
+          <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800">
             <UserAvatar email={user?.email ?? 'U'} />
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] text-gray-500 truncate">{user?.email}</p>
+              <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
             </div>
             <button onClick={handleSignOut} title="Sair"
               className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-white/10 text-gray-400 hover:text-red-500 transition-colors">
