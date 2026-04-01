@@ -34,7 +34,7 @@ export default function Reports() {
     const months: MonthData[] = [];
     for (let m = 1; m <= 12; m++) {
       const start = `${year}-${String(m).padStart(2, '0')}-01`;
-      const end = `${year}-${String(m).padStart(2, '0')}-31`;
+      const end = new Date(year, m, 0).toISOString().split('T')[0];
       const { data } = await supabase.from('transactions').select('type,amount').gte('date', start).lte('date', end).eq('is_paid', true);
       const receitas = (data ?? []).filter((t) => t.type === 'income').reduce((s, t) => s + Number(t.amount), 0);
       const despesas = (data ?? []).filter((t) => t.type === 'expense').reduce((s, t) => s + Number(t.amount), 0);

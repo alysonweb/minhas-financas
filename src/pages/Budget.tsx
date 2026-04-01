@@ -33,7 +33,7 @@ export default function BudgetPage() {
   async function load() {
     setLoading(true);
     const start = `${year}-${String(month).padStart(2, '0')}-01`;
-    const end = `${year}-${String(month).padStart(2, '0')}-31`;
+    const end = new Date(year, month, 0).toISOString().split('T')[0];
 
     const [{ data: bgs }, { data: cats }, { data: txs }] = await Promise.all([
       supabase

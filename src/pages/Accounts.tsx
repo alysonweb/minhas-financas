@@ -51,7 +51,7 @@ export default function Accounts() {
   async function loadStatement(accountId: string, year: number, month: number) {
     setStatementLoading(true);
     const start = `${year}-${String(month).padStart(2, '0')}-01`;
-    const end = `${year}-${String(month).padStart(2, '0')}-31`;
+    const end = new Date(year, month, 0).toISOString().split('T')[0];
     const { data } = await supabase
       .from('transactions')
       .select('*, category:categories(*)')

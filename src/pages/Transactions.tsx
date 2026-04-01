@@ -54,7 +54,7 @@ export default function Transactions() {
   async function loadAll() {
     setLoading(true);
     const start = `${filterYear}-${String(filterMonth).padStart(2, '0')}-01`;
-    const end = `${filterYear}-${String(filterMonth).padStart(2, '0')}-31`;
+    const end = new Date(filterYear, filterMonth, 0).toISOString().split('T')[0];
 
     const [{ data: txs }, { data: accs }, { data: cats }, { data: crds }] = await Promise.all([
       supabase
@@ -216,7 +216,7 @@ export default function Transactions() {
     const prevMonth = filterMonth === 1 ? 12 : filterMonth - 1;
     const prevYear = filterMonth === 1 ? filterYear - 1 : filterYear;
     const prevStart = `${prevYear}-${String(prevMonth).padStart(2, '0')}-01`;
-    const prevEnd = `${prevYear}-${String(prevMonth).padStart(2, '0')}-31`;
+    const prevEnd = new Date(prevYear, prevMonth, 0).toISOString().split('T')[0];
 
     const { data: recurring } = await supabase
       .from('transactions')
@@ -231,7 +231,7 @@ export default function Transactions() {
     }
 
     const curStart = `${filterYear}-${String(filterMonth).padStart(2, '0')}-01`;
-    const curEnd = `${filterYear}-${String(filterMonth).padStart(2, '0')}-31`;
+    const curEnd = new Date(filterYear, filterMonth, 0).toISOString().split('T')[0];
     const { data: existing } = await supabase
       .from('transactions')
       .select('description, amount, type')

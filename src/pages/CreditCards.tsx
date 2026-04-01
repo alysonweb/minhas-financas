@@ -39,7 +39,7 @@ export default function CreditCards() {
 
   async function loadBill(card: CreditCard) {
     const start = `${billYear}-${String(billMonth).padStart(2, '0')}-01`;
-    const end = `${billYear}-${String(billMonth).padStart(2, '0')}-31`;
+    const end = new Date(billYear, billMonth, 0).toISOString().split('T')[0];
     const { data } = await supabase
       .from('transactions')
       .select('*, category:categories(*)')
